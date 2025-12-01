@@ -8,16 +8,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 router = APIRouter(prefix="/api/voice", tags=["Voice Note"])
-
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_BASE_URL = os.getenv("GROQ_BASE_URL", "https://api.groq.com")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 
-
 class VoiceResponse(BaseModel):
     transcript: str
     fields: dict
-
 
 @router.post("/summarize", response_model=VoiceResponse)
 async def summarize_voice(audio: UploadFile = File(...)):
@@ -27,9 +24,6 @@ async def summarize_voice(audio: UploadFile = File(...)):
     3. Return { transcript, fields }
     """
 
-    # ------------------------------------------
-    # STEP 1 — Upload audio to Groq Whisper API
-    # ------------------------------------------
     whisper_url = f"{GROQ_BASE_URL}/v1/audio/transcriptions"
 
     audio_bytes = await audio.read()
@@ -51,9 +45,6 @@ async def summarize_voice(audio: UploadFile = File(...)):
     whisper_json = whisper_res.json()
     transcript_text = whisper_json.get("text", "")
 
-    # ------------------------------------------
-    # STEP 2 — Extract CRM fields using LLaMA
-    # ------------------------------------------
     extract_prompt = f"""
     Extract the following fields from this interaction transcript:
 
@@ -96,7 +87,6 @@ async def summarize_voice(audio: UploadFile = File(...)):
     llm_json = llm_res.json()
     raw = llm_json["choices"][0]["message"]["content"].strip()
 
-    # Clean code block formatting if present
     raw = raw.replace("```json", "").replace("```", "")
 
     try:
@@ -108,4 +98,3 @@ async def summarize_voice(audio: UploadFile = File(...)):
         "transcript": transcript_text,
         "fields": fields
     }
-
