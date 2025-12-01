@@ -11,64 +11,44 @@ function ChatAssistant() {
 
     function formatDateTime(isoString) {
         if (!isoString || !isoString.includes("T")) return { date: "", time: "" };
-
         const [yyyy, mm, dd] = isoString.split("T")[0].split("-");
         const formattedDate = `${mm}/${dd}/${yyyy}`;
-
         const [rawH, rawM] = isoString.split("T")[1].split(":");
         let hour = parseInt(rawH, 10);
         const ampm = hour >= 12 ? "PM" : "AM";
         hour = hour % 12 || 12;
-
         const formattedTime = `${hour}:${rawM} ${ampm}`;
         return { date: formattedDate, time: formattedTime };
     }
 
-    // -------------------------------------------------------
-    // ⭐ UNIVERSAL HCP NAME EXTRACTION
-    // -------------------------------------------------------
     function extractHcpName(obj) {
         if (!obj) return null;
         const text = JSON.stringify(obj).toLowerCase();
-
         const keys = ["hcpName", "hcp_name", "hcp", "doctor", "name"];
         for (let k of keys) {
             if (obj[k]) return obj[k];
         }
 
-        // Regex fallback → "Dr Ananya", "Dr. Sharma"
         const match = text.match(/dr\.?\s+[a-z]+/i);
         return match ? match[0].replace("dr", "Dr") : null;
     }
 
-    // -------------------------------------------------------
-    // ⭐ NORMALIZE FIELDS BEFORE DISPATCH
-    // -------------------------------------------------------
     function normalizeFields(fields, record) {
         let f = { ...fields };
-
-        // --- HCP NAME ---
         const n1 = extractHcpName(fields);
         const n2 = extractHcpName(record);
         const n3 = extractHcpName(record?.fields);
         f.hcpName = n1 || n2 || n3 || f.hcpName || "";
-
-        // --- FORMAT DATE + TIME ---
         if (fields.date) {
             const dt = formatDateTime(fields.date);
             f.date = dt.date;
             f.time = dt.time;
         }
-
         return f;
     }
 
-    // -------------------------------------------------------
-    // ⭐ GLOBAL UI FIELD DISPATCHER WITH ANIMATION
-    // -------------------------------------------------------
     window.__dispatch__ = (fields) => {
         dispatch(setFormFields(fields));
-
         setTimeout(() => {
             document.querySelectorAll(".auto-field").forEach((el) => {
                 el.classList.add("field-pulse");
@@ -77,54 +57,37 @@ function ChatAssistant() {
         }, 30);
     };
 
-    // -------------------------------------------------------
-    // ⭐ GLOBAL VOICE UPLOAD HANDLER
-    // -------------------------------------------------------
     window.handleVoiceUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
-
         document.getElementById("voice-wave").classList.remove("hidden");
         const bar = document.getElementById("upload-bar");
         bar.classList.remove("hidden");
-
         const formData = new FormData();
         formData.append("audio", file);
-
         const res = await fetch("http://localhost:8000/api/voice/summarize", {
             method: "POST",
             body: formData
         });
 
         const data = await res.json();
-
         document.getElementById("voice-wave").classList.add("hidden");
         bar.classList.add("hidden");
-
         if (data.fields) {
             const fixed = normalizeFields(data.fields, {});
             window.__dispatch__(fixed);
         }
-
         addMsg("ai", "🎙️ <b>Voice note summarized successfully!</b>", "success");
     };
 
-    // -------------------------------------------------------
-    // ⭐ ADD CHAT MESSAGE
-    // -------------------------------------------------------
     function addMsg(role, text, style) {
         setMessages((m) => [...m, { role, text, style }]);
     }
 
-    // -------------------------------------------------------
-    // ⭐ SEND MESSAGE HANDLER (MAIN FIX)
-    // -------------------------------------------------------
     async function send() {
         if (!input.trim()) return;
-
         addMsg("user", input, "user");
         setTyping(true);
-
         let res = null;
         try {
             res = await callAgent({ intent: "log_interaction", text: input });
@@ -135,7 +98,6 @@ function ChatAssistant() {
         }
 
         setTyping(false);
-
         if (!res) {
             addMsg("ai", "⚠️ No response from AI.", "error");
             return;
@@ -151,13 +113,9 @@ function ChatAssistant() {
         }
 
         if (res.record) dispatch(setSavedRecord(res.record));
-
         setInput("");
     }
 
-    // -------------------------------------------------------
-    // ⭐ TYPING ANIMATION
-    // -------------------------------------------------------
     function typingDots() {
         return React.createElement(
             "div",
@@ -166,12 +124,8 @@ function ChatAssistant() {
         );
     }
 
-    // -------------------------------------------------------
-    // ⭐ BUBBLE RENDERER
-    // -------------------------------------------------------
     function renderBubble(msg, idx) {
         const base = "animate-fadeInUp p-3 rounded border";
-
         const styles = {
             user: "bg-blue-100 border-blue-300",
             success: "bg-green-100 border-green-300",
@@ -189,15 +143,10 @@ function ChatAssistant() {
         );
     }
 
-    // -------------------------------------------------------
-    // ⭐ MAIN UI
-    // -------------------------------------------------------
     return React.createElement(
         "div",
         { className: "bg-white shadow-xl rounded-2xl p-5 h-[85vh] flex flex-col animate-card" },
-
         React.createElement("h2", { className: "text-lg font-bold mb-3" }, "AI Assistant"),
-
         React.createElement(
             "div",
             { className: "flex-1 overflow-y-auto pr-1" },
@@ -229,4 +178,3 @@ function ChatAssistant() {
 }
 
 export default ChatAssistant;
-
