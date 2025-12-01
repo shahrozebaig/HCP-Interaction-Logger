@@ -1,4 +1,3 @@
-# backend/app/langgraph/tools/suggest_followups.py
 from ...utils.llm import GroqClient
 from typing import Dict, Any
 import json, re
@@ -19,6 +18,5 @@ async def suggest_followups_tool(context: Dict[str, Any], groq: GroqClient) -> D
         arr = json.loads(arr_text)
         return {"status":"ok", "suggestions": arr}
     except Exception:
-        # fallback: split lines
         lines = [l.strip() for l in out.splitlines() if l.strip()]
         return {"status":"ok", "suggestions": lines[:5]}
