@@ -1,4 +1,3 @@
-# backend/app/langgraph/tools/summarize_voice.py
 from ...utils.llm import GroqClient
 from typing import Dict, Any
 import json, re
