@@ -15,7 +15,6 @@ async def agent_run(payload: dict):
     }
     """
 
-    # Basic validation
     if "intent" not in payload:
         raise HTTPException(400, "Missing 'intent' field")
 
