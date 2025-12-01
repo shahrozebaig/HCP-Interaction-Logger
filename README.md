@@ -16,6 +16,10 @@ The system supports voice notes, allowing users to upload audio files which are 
 
 https://www.loom.com/share/13d19fd0b0a749fd97bdff9bad14449e
 
+**MP4 Video**
+
+[screen-capture.webm](https://github.com/user-attachments/assets/26b9955e-c0d5-464b-9fcd-09977110b630)
+
 ---
 ## 🚀 Key Features
 
@@ -36,11 +40,8 @@ AI automatically extracts:
 - ✅ Follow-Up Actions
 
 ### ✏️ AI Edit Tool
-Correct entries with natural language:
-```
-"Update the sentiment to negative and change the name to Dr. Ravi."
-```
-Only specified fields are updated automatically.
+- Correct entries with natural language:
+- Only specified fields are updated automatically.
 
 ### 🎙️ Voice Note Summarization
 - Upload MP3/WAV audio files
@@ -55,16 +56,6 @@ At least five intelligent AI tools:
 - 🎙️ Summarize Voice Note
 - 💡 Suggest Follow-Ups
 - 👤 Extract HCP Details
-
-### 🗂️ Database-Backed Storage
-- All interactions stored in MongoDB Atlas
-- Enable future retrieval, analytics, and reports
-
-### 💬 Interactive Chat UI
-- Real-time chat interface
-- AI responses with typing animations
-- Voice processing indicators
-- Success/error messages
 
 ---
 
@@ -88,17 +79,6 @@ At least five intelligent AI tools:
 - 🧠 Groq LLaMA-3.1 Model
 - 🗄️ MongoDB Atlas
 - 🐍 Python 3+
-
----
-
-## 🎯 Purpose & Use Cases
-
-This system demonstrates how **AI-driven workflows** can automate CRM processes in the healthcare domain. By combining structured LLM tools with an interactive UI, it showcases:
-
-- 🏥 **Medical Representatives** - Faster interaction logging in the field
-- 👥 **Field Teams** - Reduced manual data entry burden
-- 📊 **Organizations** - Accurate, consistent data collection
-- 🔍 **Analytics** - Better insights from structured interaction data
 
 ---
 
