@@ -1,8 +1,6 @@
-# backend/app/schemas/interaction_schema.py
 from pydantic import BaseModel, Field
 from typing import List, Optional
 from datetime import datetime
-
 
 class InteractionBase(BaseModel):
     hcpId: str
@@ -15,10 +13,8 @@ class InteractionBase(BaseModel):
     followups: Optional[List[str]] = []
     summary: Optional[str] = None
 
-
 class InteractionCreate(InteractionBase):
     pass
-
 
 class InteractionUpdate(BaseModel):
     topics: Optional[List[str]] = None
@@ -27,7 +23,6 @@ class InteractionUpdate(BaseModel):
     sentiment: Optional[str] = None
     followups: Optional[List[str]] = None
     summary: Optional[str] = None
-
 
 class InteractionInDB(InteractionBase):
     id: str
