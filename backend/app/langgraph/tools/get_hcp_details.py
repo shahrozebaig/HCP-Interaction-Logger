@@ -1,4 +1,3 @@
-# backend/app/langgraph/tools/get_hcp_details.py
 from ...models.hcp_model import find_hcp_by_name, get_hcp_by_id
 from ...models.interaction_model import list_interactions_for_hcp
 from typing import Dict, Any
