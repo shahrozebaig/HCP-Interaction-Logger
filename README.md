@@ -6,9 +6,7 @@ An intelligent CRM module designed to help Medical Representatives (MRs) record 
 
 ## 📖 Introduction
 
-Traditional CRM systems require users to manually fill repetitive multi-field forms. This project eliminates that friction through an **AI-powered workflow**. Users simply write or speak a natural-language summary, and AI automatically extracts key information such as HCP name, date, topics discussed, sentiment, materials shared, samples distributed, outcomes, and follow-up actions.
-
-The system supports voice notes, allowing users to upload audio files which are then transcribed and analyzed using AI. This demonstrates how AI can serve as a real-time assistant inside enterprise software, making data entry faster, more accurate, and highly user-friendly.
+The AI-First HCP Interaction Logging System is an intelligent CRM solution built to help Medical Representatives efficiently record their interactions with Healthcare Professionals. Instead of manually filling long and repetitive forms, users simply type or speak a natural-language summary, and the AI automatically extracts all essential details—such as the HCP name, date, topics discussed, sentiment, materials shared, samples distributed, outcomes, and follow-up actions—and populates the form instantly. The system also supports voice note uploads, enabling audio transcripts to be processed and converted into structured interaction data. By transforming free text or speech into structured CRM entries, the platform reduces manual effort, increases accuracy, and delivers a faster, more user-friendly workflow through real-time AI assistance.
 
 ---
 
