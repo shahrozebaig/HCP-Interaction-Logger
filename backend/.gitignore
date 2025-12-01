@@ -1,0 +1,81 @@
+# -------------------------
+# Python & Virtual Env
+# -------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+ENV/
+env/
+.venv/
+
+# -------------------------
+# OS / IDE files
+# -------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# -------------------------
+# ENV Variables (.env)
+# -------------------------
+.env
+.env.* 
+*.env
+# Prevent leaking keys:
+# - GROQ_API_KEY
+# - OPENAI_API_KEY (if ever used)
+# - MONGO_URI
+# - Any credentials
+
+# -------------------------
+# Logs
+# -------------------------
+*.log
+logs/
+uvicorn.log
+
+# -------------------------
+# Cache
+# -------------------------
+.cache/
+mypy_cache/
+pytest_cache/
+__snapshots__/
+
+# -------------------------
+# Python package management
+# -------------------------
+pip-wheel-metadata/
+pip-log.txt
+
+# -------------------------
+# Local files created by uvicorn / FastAPI
+# -------------------------
+*.sqlite3
+*.db
+
+# -------------------------
+# Audio uploads (optional)
+# -------------------------
+uploads/
+*.wav
+*.mp3
+*.m4a
+
+# -------------------------
+# Misc
+# -------------------------
+*.tmp
+*.bak
+*~

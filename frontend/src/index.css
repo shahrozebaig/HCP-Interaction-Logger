@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Smooth beautiful scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+/* Chat bubble fade in */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.25s ease-out forwards;
+}
+
+/* Card slide animation */
+@keyframes cardSlide {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-card {
+  animation: cardSlide 0.4s ease-out;
+}
+
+/* Typing dots */
+@keyframes typingDots {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+.typing-dot {
+  animation: typingDots 1s infinite;
+}
+
+/* Field pulse when AI fills */
+@keyframes fieldPulse {
+  0% { background-color: #fff7d6; }
+  100% { background-color: white; }
+}
+
+.field-pulse {
+  animation: fieldPulse 1.2s ease-out;
+}
+
+/* Smooth scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+/* ========================= */
+/*  WAVEFORM ANIMATION       */
+/* ========================= */
+.wave-container {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 25px;
+}
+
+.wave-bar {
+  width: 4px;
+  height: 10px;
+  background: #3b82f6;
+  border-radius: 2px;
+  animation: waveBeat 1s ease-in-out infinite;
+}
+
+.wave-bar:nth-child(2) { animation-delay: 0.15s; }
+.wave-bar:nth-child(3) { animation-delay: 0.3s; }
+.wave-bar:nth-child(4) { animation-delay: 0.45s; }
+.wave-bar:nth-child(5) { animation-delay: 0.6s; }
+
+@keyframes waveBeat {
+  0% { height: 8px; }
+  50% { height: 26px; }
+  100% { height: 8px; }
+}
+
+/* ========================= */
+/* UPLOADING ANIMATION       */
+/* ========================= */
+.uploading-pulse {
+  animation: uploadBlink 1s infinite ease-in-out;
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+@keyframes uploadBlink {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+.upload-bar {
+  width: 0;
+  height: 4px;
+  background: #3b82f6;
+  animation: fillBar 2.5s forwards ease-in-out;
+  border-radius: 4px;
+}
+
+@keyframes fillBar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* Chat Bubble Fade-in */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeInUp { animation: fadeInUp 0.3s ease-out; }
+
+/* Slide-in Card */
+@keyframes cardSlide {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-card { animation: cardSlide 0.4s ease-out; }
+
+/* Field Pulse */
+@keyframes fieldPulse {
+  0% { background-color: #fff7d6; }
+  100% { background-color: white; }
+}
+.field-pulse { animation: fieldPulse 1.2s ease-out; }
