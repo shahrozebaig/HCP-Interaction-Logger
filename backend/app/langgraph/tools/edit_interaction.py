@@ -1,4 +1,3 @@
-# backend/app/langgraph/tools/edit_interaction.py
 from ...models.interaction_model import update_interaction, get_interaction
 from ...utils.llm import GroqClient
 from typing import Dict, Any
@@ -20,7 +19,6 @@ async def parse_edit_json(groq: GroqClient, instruction: str) -> Dict[str, Any]:
         json_text = re.search(r"\{.*\}", out, re.S).group(0)
         return json.loads(json_text)
     except Exception:
-        # fallback: place entire instruction into summary change
         return {"summary": instruction}
 
 async def edit_interaction_tool(interaction_id: str, updates: Dict[str, Any], groq: GroqClient) -> Dict[str, Any]:
@@ -28,11 +26,9 @@ async def edit_interaction_tool(interaction_id: str, updates: Dict[str, Any], gr
     if not existing:
         return {"status":"error", "message":"Interaction not found"}
 
-    # If 'text' in updates, use the LLM to parse changes
     if updates and updates.get("text"):
         parsed = await parse_edit_json(groq, updates["text"])
         updates = {k:v for k,v in parsed.items()}
 
-    # Apply only provided fields
     updated = await update_interaction(interaction_id, updates)
     return {"status":"ok", "tool":"edit_interaction", "updates": updates, "record": updated}
