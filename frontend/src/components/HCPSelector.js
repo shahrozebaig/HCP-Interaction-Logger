@@ -1,17 +1,10 @@
-// src/components/HCPSelector.js
 import React, { useState, useEffect } from "react";
 import { apiGet } from "../services/api";
 
-/*
-  Simple HCP selector that searches backend by name.
-  Props:
-    onChange(hcp) - called with selected HCP object { id, name, speciality, location }
-*/
 function HCPSelector({ onChange }) {
     const [q, setQ] = useState("");
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
-
     useEffect(() => {
         if (!q || q.length < 2) {
             setResults([]);
@@ -24,7 +17,6 @@ function HCPSelector({ onChange }) {
                 const res = await apiGet(`/hcp/search/?name=${encodeURIComponent(q)}`);
                 if (!cancelled) {
                     if (res && res.status === "ok" && res.data) {
-                        // backend may return single doc or list
                         const list = Array.isArray(res.data) ? res.data : [res.data];
                         setResults(list);
                     } else {
@@ -37,19 +29,16 @@ function HCPSelector({ onChange }) {
                 if (!cancelled) setLoading(false);
             }
         }, 300);
-
         return () => {
             cancelled = true;
             clearTimeout(t);
         };
     }, [q]);
-
     function selectItem(item) {
         setQ(item.name);
         setResults([]);
         if (onChange) onChange({ id: item.id || item._id || item.hcpId, name: item.name, speciality: item.speciality, location: item.location });
     }
-
     return React.createElement(
         "div",
         { className: "mb-4" },
@@ -73,5 +62,4 @@ function HCPSelector({ onChange }) {
         loading ? React.createElement("div", { className: "text-xs text-gray-500 mt-1" }, "Searching...") : null
     );
 }
-
 export default HCPSelector;
