@@ -68,36 +68,100 @@ At least five intelligent AI tools:
 
 ---
 
-## 🏗️ Project Structure
+## 🏗️ System Architecture
 
-```
-AI-HCP-Interaction-Logging-System/
-│
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   │   ├── agent.py           
-│   │   │   ├── interactions.py    
-│   │   │   ├── hcp.py             
-│   │   │   └── voice.py          
-│   │   ├── core/
-│   │   │   └── database.py        
-│   │   ├── langgraph/     
-│   │   └── main.py                
-│   ├── requirements.txt
-│   └── .env
-├── frontend/
-│   ├── src/
-│   │   ├── components/           
-│   │   ├── pages/
-│   │   ├── redux/
-│   │   ├── services/              
-│   │   ├── App.js
-│   │   └── index.js
-│   ├── public/
-│   └── package.json
-└── README.md
-```
+graph TD
+    subgraph User["👤 Medical Representative"]
+        A["Type/Speak Summary<br/>or Upload Voice"]
+    end
+    
+    subgraph Frontend["🖥️ Frontend - React"]
+        B["Chat Interface<br/>& Interaction Form"]
+        C["Voice Upload<br/>Component"]
+        D["Redux State<br/>Management"]
+    end
+    
+    subgraph Communication["🔌 API Communication"]
+        E["HTTP/REST<br/>Requests"]
+    end
+    
+    subgraph Backend["⚡ Backend - FastAPI"]
+        F["Main App<br/>Entry Point"]
+        G["Agent API<br/>Endpoint"]
+    end
+    
+    subgraph VoiceProcessing["🎙️ Voice Processing"]
+        H["Voice Upload<br/>Handler"]
+        I["Audio Transcription<br/>Service"]
+    end
+    
+    subgraph AITools["🤖 LangGraph AI Tools"]
+        J["Log Interaction<br/>Tool"]
+        K["Edit Interaction<br/>Tool"]
+        L["Summarize Voice<br/>Tool"]
+        M["Suggest Follow-Ups<br/>Tool"]
+        N["Extract HCP Details<br/>Tool"]
+    end
+    
+    subgraph LLM["🧠 Groq LLaMA-3.1"]
+        O["AI Model<br/>Processing"]
+    end
+    
+    subgraph DataExtraction["📊 Data Extraction"]
+        P["Parse HCP Name<br/>Date & Time"]
+        Q["Sentiment Analysis<br/>Topics & Materials"]
+        R["Generate Summary<br/>& Follow-Ups"]
+    end
+    
+    subgraph Database["💾 MongoDB Atlas"]
+        S["Store Interactions<br/>HCP Records"]
+    end
+    
+    subgraph Dashboard["📋 Dashboard & Reports"]
+        T["View All<br/>Interactions"]
+        U["Analytics<br/>& Reports"]
+    end
+    
+    A -->|Text or Voice| B
+    A -->|Audio File| C
+    B -->|Send Summary| E
+    C -->|Upload Voice| H
+    E -->|Route| F
+    F -->|Process| G
+    H -->|Transcribe| I
+    I -->|Send Text| G
+    G -->|Dispatch to Tools| J
+    G -->|Dispatch to Tools| K
+    G -->|Dispatch to Tools| L
+    G -->|Dispatch to Tools| M
+    G -->|Dispatch to Tools| N
+    J -->|Send to AI| O
+    K -->|Send to AI| O
+    L -->|Send to AI| O
+    M -->|Send to AI| O
+    N -->|Send to AI| O
+    O -->|Extract Data| P
+    O -->|Extract Data| Q
+    O -->|Extract Data| R
+    P -->|Save| S
+    Q -->|Save| S
+    R -->|Save| S
+    S -->|Retrieve| T
+    S -->|Generate| U
+    T -->|Display| B
+    U -->|Display| D
+    D -->|Show to User| A
+    
+    style User fill:#E3F2FD
+    style Frontend fill:#F3E5F5
+    style Communication fill:#FCE4EC
+    style Backend fill:#E8F5E9
+    style VoiceProcessing fill:#FFF3E0
+    style AITools fill:#E0F2F1
+    style LLM fill:#C8E6C9
+    style DataExtraction fill:#ECE7F7
+    style Database fill:#BBE0F1
+    style Dashboard fill:#FFF8E1
 
 ---
 
@@ -115,19 +179,6 @@ AI-HCP-Interaction-Logging-System/
 - 🧠 Groq LLaMA-3.1 Model
 - 🗄️ MongoDB Atlas
 - 🐍 Python 3+
-
----
-
-## 🔐 Environment Variables
-
-Create a `.env` file in the backend folder:
-
-```env
-MONGO_URI=your_mongo_uri
-GROQ_API_KEY=your_api_key
-GROQ_BASE_URL=https://api.groq.com
-GROQ_MODEL=llama-3.1-8b-instant
-```
 
 ---
 
